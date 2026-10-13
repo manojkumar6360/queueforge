@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QueueForge Master Project Blueprint</title>
+<style>
+  @page {
+    size: A4;
+    margin: 15mm 14mm 15mm 14mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Liberation Sans", sans-serif;
+    color: #1e293b;
+    line-height: 1.45;
+    font-size: 9pt;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+  }
+
+  .page-break {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Cover Page */
+  .cover {
+    height: 96vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 44px 34px;
+    background: linear-gradient(145deg, #090d16 0%, #171c36 55%, #2a2c63 100%);
+    color: #ffffff;
+    border-radius: 12px;
+  }
+
+  .cover-top {
+    border-bottom: 2px solid #6366f1;
+    padding-bottom: 24px;
+  }
+
+  .tagline-badge {
+    display: inline-block;
+    background: rgba(99, 102, 241, 0.25);
+    color: #a5b4fc;
+    border: 1px solid #6366f1;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .cover-title {
+    font-size: 38pt;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin: 0 0 12px 0;
+    color: #ffffff;
+  }
+
+  .cover-title span {
+    color: #818cf8;
+  }
+
+  .cover-subtitle {
+    font-size: 13.5pt;
+    color: #cbd5e1;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0;
+    max-width: 92%;
+  }
+
+  .cover-meta {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 24px 0;
+  }
+
+  .meta-item {
+    font-size: 9pt;
+  }
+
+  .meta-label {
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    margin-bottom: 2px;
+  }
+
+  .meta-value {
+    color: #f8fafc;
+    font-weight: 600;
+  }
+
+  .cover-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 16px;
+    font-size: 8pt;
+    color: #94a3b8;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #0f172a;
+    border-bottom: 2px solid #4f46e5;
+    padding-bottom: 4px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    letter-spacing: -0.2px;
+  }
+
+  h2 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #1e293b;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    border-left: 3.5px solid #6366f1;
+    padding-left: 8px;
+  }
+
+  h3 {
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: #334155;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 8.5pt;
+  }
+
+  th {
+    background-color: #0f172a;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 8px;
+    border: 1px solid #1e293b;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: 6px 8px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+
+  /* Callouts & Alert Boxes */
+  .callout {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 8px 0;
+    border-left: 4px solid;
+    font-size: 8.5pt;
+  }
+
+  .callout-info {
+    background-color: #eff6ff;
+    border-color: #3b82f6;
+    color: #1e3a8a;
+  }
+
+  .callout-success {
+    background-color: #ecfdf5;
+    border-color: #10b981;
+    color: #064e3b;
+  }
+
+  .callout-warning {
+    background-color: #fffbeb;
+    border-color: #f59e0b;
+    color: #78350f;
+  }
+
+  .callout-dark {
+    background-color: #0f172a;
+    border-color: #6366f1;
+    color: #f1f5f9;
+  }
+
+  .callout-title {
+    font-weight: 700;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Code Blocks */
+  pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-family: "DejaVu Sans Mono", "Liberation Mono", Consolas, monospace;
+    font-size: 7.2pt;
+    line-height: 1.35;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 6px 0;
+    border: 1px solid #334155;
+  }
+
+  code {
+    font-family: "DejaVu Sans Mono", "Liberation Mono", Consolas, monospace;
+    font-size: 7.8pt;
+    background: #f1f5f9;
+    color: #be185d;
+    padding: 1px 3px;
+    border-radius: 3px;
+  }
+
+  pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+  }
+
+  /* Badges & Tags */
+  .badge {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 7pt;
+    font-weight: 600;
+  }
+
+  .badge-blue { background: #dbeafe; color: #1e40af; }
+  .badge-green { background: #d1fae5; color: #065f46; }
+  .badge-purple { background: #ede9fe; color: #5b21b6; }
+  .badge-yellow { background: #fef3c7; color: #92400e; }
+  .badge-red { background: #fee2e2; color: #991b1b; }
+
+  /* Flow Diagram Container */
+  .flow-container {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 9px;
+    margin: 8px 0;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 3px;
+  }
+
+  .step-num {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4f46e5;
+    color: white;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7pt;
+    margin-right: 8px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-content {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 5px 8px;
+    flex-grow: 1;
+    font-size: 8pt;
+  }
+
+  .flow-arrow {
+    text-align: center;
+    color: #6366f1;
+    font-size: 9pt;
+    margin: -3px 0 2px 26px;
+  }
+
+  /* Grid Layouts */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 6px 0;
+  }
+
+  .card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 10px;
+  }
+
+  .card-title {
+    font-weight: 700;
+    font-size: 8.5pt;
+    color: #1e293b;
+    margin-bottom: 3px;
+  }
+
+  /* Seat Status Legend */
+  .legend-box {
+    display: flex;
+    gap: 12px;
+    background: #f1f5f9;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin: 6px 0;
+    font-size: 7.5pt;
+    font-weight: 600;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .color-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+
+  .dot-green { background: #10b981; }
+  .dot-yellow { background: #f59e0b; }
+  .dot-red { background: #ef4444; }
+  .dot-blue { background: #3b82f6; }
+
+  /* Table of Contents */
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+  }
+
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 3.5px 0;
+    border-bottom: 1px dotted #cbd5e1;
+    font-size: 8.5pt;
+  }
+
+  .toc-item strong {
+    color: #1e293b;
+  }
+
+  .toc-num {
+    color: #6366f1;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+  .toc-page {
+    color: #64748b;
+    font-weight: 600;
+    font-size: 8pt;
+  }
+
+  ul, ol {
+    margin-top: 2px;
+    margin-bottom: 5px;
+    padding-left: 15px;
+  }
+
+  li {
+    margin-bottom: 2px;
+  }
+
+  .header-tag {
+    font-size: 7pt;
+    text-transform: uppercase;
+    color: #6366f1;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    margin-bottom: 2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="tagline-badge">Enterprise System Architecture &bull; Engineering Portfolio Piece</div>
+    <h1 class="cover-title">QUEUE<span>FORGE</span></h1>
+    <p class="cover-subtitle">Distributed Virtual Waiting Room & High-Concurrency Flash Reservation Engine</p>
+  </div>
+
+  <div class="cover-meta">
+    <div class="meta-item">
+      <div class="meta-label">Project Origin & Context</div>
+      <div class="meta-value">Career Level-Up: Junior to Mid/Senior Transition</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Primary Architectural Pattern</div>
+      <div class="meta-value">Ingress Queuing & In-Memory Distributed Locks</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Production Tech Stack</div>
+      <div class="meta-value">Next.js 15, Node/Fastify, Redis, PostgreSQL, WebSockets</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Hosting & Tooling Cost</div>
+      <div class="meta-value">100% Free Tier ($0.00 / Zero Credit Cards Required)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Local Project Workspace</div>
+      <div class="meta-value">/home/luffy/Desktop/queueforge</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Document Version & Date</div>
+      <div class="meta-value">v1.0 &bull; Master Engineering Blueprint (Oct 2026)</div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div>Prepared for: Luffy &bull; Linux Developer Workspace</div>
+    <div>Google DeepMind Agentic Systems</div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- PAGE 2: TABLE OF CONTENTS & EXECUTIVE SUMMARY -->
+<div class="header-tag">Executive Overview</div>
+<h1>Table of Contents & Executive Summary</h1>
+
+<p>
+This master blueprint provides the comprehensive engineering specification for <strong>QueueForge</strong>, a production-grade distributed system designed to handle massive flash-sale traffic spikes without database deadlocks or duplicate inventory sales.
+</p>
+
+<div class="card avoid-break" style="margin-bottom: 10px; background: #f8fafc;">
+  <div class="card-title">📑 Master Table of Contents</div>
+  <ul class="toc-list">
+    <li class="toc-item"><span><span class="toc-num">01</span><strong>Project Genesis & The "Tutorial Cliché" Problem</strong></span><span class="toc-page">Page 3</span></li>
+    <li class="toc-item"><span><span class="toc-num">02</span><strong>The Real-World Problem & Commercial Industry Landscape</strong></span><span class="toc-page">Page 4</span></li>
+    <li class="toc-item"><span><span class="toc-num">03</span><strong>Target Personas & Interactive Seat State Machine</strong></span><span class="toc-page">Page 5</span></li>
+    <li class="toc-item"><span><span class="toc-num">04</span><strong>End-to-End System Architecture: Request Lifecycle</strong></span><span class="toc-page">Page 6</span></li>
+    <li class="toc-item"><span><span class="toc-num">05</span><strong>System Architecture Topology & Ingress Patterns</strong></span><span class="toc-page">Page 7</span></li>
+    <li class="toc-item"><span><span class="toc-num">06</span><strong>Technical Mechanics: Virtual Waiting Room (Redis Sorted Sets)</strong></span><span class="toc-page">Page 8</span></li>
+    <li class="toc-item"><span><span class="toc-num">07</span><strong>Technical Mechanics: Atomic Distributed Seat Locking (SET NX EX)</strong></span><span class="toc-page">Page 9</span></li>
+    <li class="toc-item"><span><span class="toc-num">08</span><strong>Database Schema Design (PostgreSQL / Prisma)</strong></span><span class="toc-page">Page 10</span></li>
+    <li class="toc-item"><span><span class="toc-num">09</span><strong>100% Free-Tier Production Tech Stack & Monorepo Structure</strong></span><span class="toc-page">Page 11</span></li>
+    <li class="toc-item"><span><span class="toc-num">10</span><strong>Master 8-Week / 4-Phase Execution Roadmap</strong></span><span class="toc-page">Page 12</span></li>
+    <li class="toc-item"><span><span class="toc-num">11</span><strong>Concurrency Load Testing & Empirical Verification Blueprint</strong></span><span class="toc-page">Page 13</span></li>
+    <li class="toc-item"><span><span class="toc-num">12</span><strong>Technical Interview Playbook & Portfolio Strategy</strong></span><span class="toc-page">Page 14</span></li>
+    <li class="toc-item"><span><span class="toc-num">13</span><strong>Quick-Start Guide for /home/luffy/Desktop/queueforge</strong></span><span class="toc-page">Page 15</span></li>
+  </ul>
+</div>
+
+<div class="callout callout-info avoid-break">
+  <div class="callout-title">🎯 Why This Blueprint Exists</div>
+  This document serves as your complete architectural guide, interview playbook, and implementation manual. By building this system inside <code>/home/luffy/Desktop/queueforge</code>, you demonstrate mastery over high-concurrency race conditions, distributed locking, in-memory data structures, and asynchronous background worker queues—the exact competencies demanded in senior backend and full-stack engineering roles.
+</div>
+
+<div class="page-break"></div>
+
+<!-- PAGE 3: SECTION 1 -->
+<div class="header-tag">Section 01</div>
+<h1>1. Project Genesis & The "Tutorial Cliché" Problem</h1>
+
+<h2>1.1 Background: Why Typical Projects Fail in Interviews</h2>
+<p>
+Most aspiring software engineers populate their resumes with standard tutorial projects: to-do lists, simple blog engines, basic e-commerce storefronts, or popular Kaggle clones like the <em>"Plant Disease Detection + Yield Prediction + Weather Recommendation"</em> bundle. 
+</p>
+<p>
+Hiring managers and senior tech leads reject these projects within seconds for three clear reasons:
+</p>
+<ul>
+  <li><strong>Zero Concurrency Handling:</strong> These apps assume a single user clicking a button at a time. The moment 50 people click simultaneously, the database deadlocks or crashes.</li>
+  <li><strong>Pure Synchronous CRUD:</strong> The server only operates when a user makes an HTTP request. There are no background workers, no distributed caches, and no event-driven mechanisms.</li>
+  <li><strong>Tutorial Cliché:</strong> Recruiters review dozens of identical Kaggle/YouTube clones every week. They do not demonstrate deep engineering ability or systems design comprehension.</li>
+</ul>
+
+<div class="callout callout-info avoid-break">
+  <div class="callout-title">💡 The Antidote: Real-World Enterprise System Design</div>
+  <strong>QueueForge</strong> is specifically engineered to be the exact opposite of a generic clone. It replicates the mission-critical infrastructure deployed by companies like <strong>Ticketmaster, Shopify, and Cloudflare</strong> to survive sudden traffic surges (e.g., Coldplay ticket drops, sneaker drops, university course enrollments) without failing or double-booking inventory.
+</div>
+
+<h2>1.2 What QueueForge Is: The Elevator Pitch</h2>
+<p>
+<strong>QueueForge</strong> is a self-hosted, full-stack distributed virtual waiting room and high-concurrency seat reservation engine. When traffic spikes beyond normal operational capacity:
+</p>
+<ol>
+  <li>It intercepts excess traffic before it touches the primary SQL database, queuing users into a high-throughput <strong>Redis FIFO Sorted Set</strong>.</li>
+  <li>It streams live queue positions (<em>"You are #142 in line"</em>) to the client using <strong>WebSockets / Server-Sent Events</strong>.</li>
+  <li>It meters admitted users with cryptographically signed, short-lived <strong>JWT passes</strong>.</li>
+  <li>It provides an interactive visual SVG seat map where inventory reservations are protected by <strong>atomic distributed Redis locks</strong> (<code>SET NX EX</code>) with 10-minute hold timers and automatic background expiration sweepers.</li>
+  <li>It guarantees idempotent checkout via PostgreSQL ACID transactions, ensuring zero duplicate bookings or double credit card charges under heavy write contention.</li>
+</ol>
+
+<div class="page-break"></div>
+
+<!-- PAGE 4: SECTION 2 -->
+<div class="header-tag">Section 02</div>
+<h1>2. The Real-World Problem & Market Landscape</h1>
+
+<h2>2.1 The Disaster of High-Demand Flash Sales</h2>
+<p>
+Imagine a concert ticket drop: <strong>50,000 enthusiastic fans visit a ticketing page at exactly 12:00:00 PM for 500 available seats</strong>.
+</p>
+
+<div class="two-col avoid-break">
+  <div class="card" style="border-left: 4px solid #ef4444;">
+    <div class="card-title" style="color: #b91c1c;">❌ Naive Architecture (Junior Dev)</div>
+    <ul style="font-size: 7.8pt; padding-left: 12px; margin: 0;">
+      <li>50,000 HTTP requests hit the database directly.</li>
+      <li>Database connection pool (usually ~20-50 connections) is instantly exhausted.</li>
+      <li>Queries stall, response times spike past 30s, and the server crashes with <code>504 Gateway Timeout</code>.</li>
+      <li><strong>Race Conditions:</strong> Multiple users query <code>SELECT WHERE is_reserved=false</code> and buy the same seat at the same second.</li>
+    </ul>
+  </div>
+  <div class="card" style="border-left: 4px solid #10b981;">
+    <div class="card-title" style="color: #047857;">✅ QueueForge Architecture (Mid/Senior)</div>
+    <ul style="font-size: 7.8pt; padding-left: 12px; margin: 0;">
+      <li>Database is completely shielded behind an in-memory Redis gatekeeper.</li>
+      <li>Users wait comfortably in a virtual queue with live countdown telemetry.</li>
+      <li>Admissions are metered steadily (e.g., 25 users / 10s) based on server processing capacity.</li>
+      <li>Atomic in-memory distributed locks guarantee that a seat can only be held by exactly 1 user. Zero double-bookings.</li>
+    </ul>
+  </div>
+</div>
+
+<h2>2.2 Existing Industry Solutions</h2>
+<p>
+This exact problem is solved by multi-million-dollar enterprise software suites. Building your own working implementation demonstrates senior-level system design literacy:
+</p>
+
+<table class="avoid-break">
+  <thead>
+    <tr>
+      <th>Existing Solution</th>
+      <th>Provider / Usage</th>
+      <th>Architecture & Commercial Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Queue-it</strong></td>
+      <td>Global market leader in virtual waiting rooms (Ticketmaster, major airlines).</td>
+      <td>Proprietary SaaS. Ingress edge redirection. Starts at <strong>$15,000 – $50,000+ per year</strong>.</td>
+    </tr>
+    <tr>
+      <td><strong>Cloudflare Waiting Room</strong></td>
+      <td>Edge queuing integrated directly into Cloudflare CDN/DNS.</td>
+      <td>Queues excess requests at edge points of presence. Requires Enterprise plan ($100s–$1,000s/mo).</td>
+    </tr>
+    <tr>
+      <td><strong>Shopify Checkout Queue</strong></td>
+      <td>Proprietary internal infrastructure for Black Friday / Cyber Monday.</td>
+      <td>Closed-source custom architecture handling millions of checkouts per minute.</td>
+    </tr>
+    <tr>
+      <td><strong>AWS Virtual Waiting Room</strong></td>
+      <td>AWS open-source reference architecture for cloud engineers.</td>
+      <td>Multi-service architecture (API Gateway + DynamoDB + Lambda + CloudFront + IoT Core).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout callout-success avoid-break">
+  <div class="callout-title">🏆 Why QueueForge Beats All of Them as a Portfolio Piece</div>
+  Enterprise platforms like <em>Queue-it</em> are closed-source black boxes costing tens of thousands of dollars. <strong>QueueForge</strong> combines both the <strong>waiting room</strong> AND the <strong>live visual seat map</strong> with <strong>distributed locks</strong> into a clean, 100% free-tier, self-hosted monorepo with automated load-testing verification.
+</div>
+
+<div class="page-break"></div>
+
+<!-- PAGE 5: SECTION 3 -->
+<div class="header-tag">Section 03</div>
+<h1>3. Target Personas & Interactive Seat State Machine</h1>
+
+<div class="two-col">
+  <div class="card avoid-break">
+    <div class="card-title">👤 Persona 1: The Ticket Buyer (End User)</div>
+    <p style="font-size: 7.8pt; color: #475569;">Fans attempting to purchase tickets during sudden surges.</p>
+    <ul style="font-size: 7.8pt; padding-left: 12px;">
+      <li>Enters waiting room and sees animated position indicator and real-time wait estimate.</li>
+      <li>Redirected automatically when admitted; receives a 15-minute cryptographically signed JWT pass.</li>
+      <li>Interacts with dynamic SVG seat map (zooming, selecting seats).</li>
+      <li>Gets an instant 10-minute hold with a visual countdown timer.</li>
+      <li>Completes idempotent checkout before the hold expires.</li>
+    </ul>
+  </div>
+
+  <div class="card avoid-break">
+    <div class="card-title">🎪 Persona 2: The Event Organizer</div>
+    <p style="font-size: 7.8pt; color: #475569;">Event promoters, theater managers, conference hosts.</p>
+    <ul style="font-size: 7.8pt; padding-left: 12px;">
+      <li>Creates events with start/end times and seat tier pricing.</li>
+      <li>Generates venue seating layouts (sections, rows, seats).</li>
+      <li>Monitors live sales telemetry: percentage of seats sold, held, and available.</li>
+      <li>Configures max inventory purchase limits per user.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-top: 6px;">
+  <div class="card-title">⚙️ Persona 3: SRE & Platform Admin</div>
+  <p style="font-size: 7.8pt; color: #475569;">Site reliability engineers and system operators maintaining uptime.</p>
+  <ul style="font-size: 7.8pt; padding-left: 12px;">
+    <li>Adjusts <strong>Drain Rate Controller</strong> dynamically (e.g. throttle to 15 users/10s during DB load spikes).</li>
+    <li>Monitors Redis lock contention rates and BullMQ background worker queue depths.</li>
+    <li>Executes emergency resets or manual seat releases if necessary.</li>
+  </ul>
+</div>
+
+<h2>3.1 Interactive Seat State Machine</h2>
+<p>
+To prevent confusion and eliminate race conditions, each seat moves through a strictly enforced state machine across both client and server:
+</p>
+
+<div class="legend-box avoid-break">
+  <div class="legend-item"><div class="color-dot dot-green"></div> <span>AVAILABLE</span></div>
+  <div class="legend-item"><div class="color-dot dot-yellow"></div> <span>HELD (Other User)</span></div>
+  <div class="legend-item"><div class="color-dot dot-blue"></div> <span>SELECTED (You - 10m Hold)</span></div>
+  <div class="legend-item"><div class="color-dot dot-red"></div> <span>SOLD / CONFIRMED</span></div>
+</div>
+
+<table class="avoid-break">
+  <thead>
+    <tr>
+      <th>Current State</th>
+      <th>Trigger / Event</th>
+      <th>Next State</th>
+      <th>System Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge badge-green">AVAILABLE</span></td>
+      <td>User clicks seat</td>
+      <td><span class="badge badge-blue">HELD (You)</span></td>
+      <td>Redis <code>SET NX EX 600</code> succeeds; WebSocket emits to other clients as <span class="badge badge-yellow">HELD</span>.</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-green">AVAILABLE</span></td>
+      <td>Other user clicks seat</td>
+      <td><span class="badge badge-yellow">HELD (Other)</span></td>
+      <td>Lock acquired by another client; updates to yellow on your screen.</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-yellow">HELD</span></td>
+      <td>Another user attempts click</td>
+      <td><span class="badge badge-yellow">HELD</span> (No Change)</td>
+      <td>Instant HTTP 409 Conflict. Redis lock rejects without touching database.</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-blue">HELD (You)</span></td>
+      <td>Timer reaches 0 / Abandoned</td>
+      <td><span class="badge badge-green">AVAILABLE</span></td>
+      <td>BullMQ worker sweeps key; Redis lock released; WebSocket turns seat green for all.</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-blue">HELD (You)</span></td>
+      <td>Payment confirmed</td>
+      <td><span class="badge badge-red">SOLD</span></td>
+      <td>PostgreSQL transaction marks seat sold; Redis lock deleted; WebSocket turns seat red.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<!-- PAGE 6: SECTION 4 - REQUEST LIFECYCLE -->
+<div class="header-tag">Section 04</div>
+<h1>4. End-to-End System Architecture: Request Lifecycle</h1>
+
+<p>
+When 50,000 requests hit the system during a ticket drop, QueueForge guides each request through a disciplined, six-step architectural pipeline:
+</p>
+
+<div class="flow-container avoid-break">
+  <div class="flow-step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Traffic Ingress & Threshold Check:</strong> Fastify/Express edge middleware monitors active buyer sessions in Redis. If active checkout sessions exceed capacity (e.g. &gt; 500), incoming users are redirected immediately to the Virtual Waiting Room.
+    </div>
+  </div>
+  <div class="flow-arrow">&#x25BC;</div>
+
+  <div class="flow-step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <strong>Virtual Waiting Room Placement:</strong> User receives a persistent UUID cookie and is added to an in-memory Redis Sorted Set via <code>ZADD queue:event_101 &lt;timestamp&gt; &lt;uuid&gt;</code>. Rank is determined in sub-millisecond O(log N) time via <code>ZRANK</code>.
+    </div>
+  </div>
+  <div class="flow-arrow">&#x25BC;</div>
+
+  <div class="flow-step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <strong>Real-Time Waiting Telemetry:</strong> An open WebSocket or Server-Sent Events (SSE) connection feeds live rank and estimated wait times to the user: <em>"You are #84 in line. Estimated wait: 28 seconds."</em>
+    </div>
+  </div>
+  <div class="flow-arrow">&#x25BC;</div>
+
+  <div class="flow-step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <strong>Queue Drain & Cryptographic Admission Pass:</strong> An autonomous background worker pops 25 users every 10 seconds via <code>ZPOPMIN</code>. Admitted users are issued a signed 15-minute JWT Queue Pass granting access to the seat reservation API.
+    </div>
+  </div>
+  <div class="flow-arrow">&#x25BC;</div>
+
+  <div class="flow-step">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <strong>Interactive Seat Map & Atomic Reservation:</strong> User clicks Seat <code>B-14</code>. Server runs atomic Redis command: <code>SET lock:seat:B14 &lt;userId&gt; NX EX 600</code>.
+      <ul>
+        <li>If returns <code>OK</code>: Hold secured for 10 minutes. Emits WebSocket broadcast turning seat yellow for everyone else.</li>
+        <li>If returns <code>null</code>: Reject instantly with <code>409 Conflict: Seat already held</code>. Database is completely unburdened.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="flow-arrow">&#x25BC;</div>
+
+  <div class="flow-step">
+    <div class="step-num">6</div>
+    <div class="step-content">
+      <strong>Checkout Settlement or Auto-Sweep:</strong>
+      <ul>
+        <li><strong>Success:</strong> User submits payment with <code>Idempotency-Key</code>. Server opens PostgreSQL transaction: validates Redis lock, inserts order record, updates <code>seats.status = 'SOLD'</code>, deletes Redis lock, and broadcasts red status.</li>
+        <li><strong>Timeout / Abandon:</strong> User closes tab or 10-minute timer expires. BullMQ delayed job releases Redis key and broadcasts green status.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- PAGE 7: SECTION 4 CONTINUED - TOPOLOGY -->
+<div class="header-tag">Section 04 (Continued)</div>
+<h1>5. System Architecture Topology & Ingress Patterns</h1>
+
+<h2>5.1 Architectural Topology Diagram</h2>
+<p>
+The system strictly separates in-memory transient traffic (locks, queue sorting, WebSocket mesh) from persistent ACID transactions (orders, event catalogs):
+</p>
+
+<pre>
+                                     +-----------------------------------------+
+                                     |         Client Browser (Next.js)        |
+                                     | - Waiting Room Screen (SSE / WS Rank)   |
+                                     | - Interactive SVG Seat Map Canvas       |
+                                     +--------------------+--------------------+
+                                                          |
+                                           HTTPS / WSS    |   (Admitted with JWT Pass)
+                                                          v
+                                     +--------------------+--------------------+
+                                     |        Backend API (Node.js/Fastify)    |
+                                     | - Ingress Rate Limiter (Token Bucket)   |
+                                     | - Waiting Room Controller (Sorted Set)  |
+                                     | - Lock Manager (Atomic Redis Operations)|
+                                     +---------+--------------------+----------+
+                                               |                    |
+                         In-Memory Operations  |                    | PostgreSQL ACID
+                         (Sub-millisecond)     |                    | Transactions (Finalized)
+                                               v                    v
++----------------------------------------------+---+   +------------+------------------+
+|           Redis In-Memory Engine                 |   |        PostgreSQL Database    |
+| - Sorted Sets: FIFO waiting room queues          |   | - Users & Organizers          |
+| - Key-Value (TTL): Distributed seat locks (600s) |   | - Events, Venues & Seats      |
+| - Pub/Sub: WebSocket multi-instance sync         |   | - Orders & Idempotency Keys   |
++--------------------------------------------------+   +-------------------------------+
+                                               ^
+                                               |
+                        +----------------------+--------------------+
+                        |         BullMQ / pg-boss Worker           |
+                        | - Queue Drain Controller (25 users / 10s) |
+                        | - 10-Minute Cart Expiration Sweeper       |
+                        +-------------------------------------------+
+</pre>
+
+<h2>5.2 Key Ingress Principles</h2>
+<ul>
+  <li><strong>Edge Admission Gating:</strong> No unadmitted request can reach database-touching routes. The JWT Queue Pass acts as a cryptographically signed gate pass.</li>
+  <li><strong>In-Memory Contention:</strong> High-frequency seat clicks never execute SQL queries. All reservation contests are decided in Redis in under 2ms.</li>
+  <li><strong>Event-Driven State Push:</strong> Seat state changes are pushed through WebSockets rather than polled via HTTP, minimizing server overhead.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- PAGE 8: SECTION 5 - MECHANISM 1: QUEUE -->
+<div class="header-tag">Section 05 (Part 1)</div>
+<h1>6. Technical Mechanics: Virtual Waiting Room (Redis Sorted Sets)</h1>
+
+<h2>6.1 Mathematical Principles of In-Memory Queuing</h2>
+<p>
+Standard relational queues suffer severe slowdown under concurrency because <code>SELECT ... FOR UPDATE</code> locks table rows and degrades to O(N) sequential scans. In contrast, Redis Sorted Sets use a skip-list and hash-map combination guaranteeing <strong>O(log N)</strong> insertion and lookup performance.
+</p>
+
+<h2>6.2 Implementation: QueueService</h2>
+<pre><code class="language-typescript">// apps/api/src/services/queue.service.ts
+import { redis } from "../lib/redis";
+
+export class QueueService {
+  private queueKey(eventId: string): string {
+    return `queue:event:${eventId}`;
+  }
+
+  // 1. Enqueue User: Uses current Unix timestamp as score
+  async enterQueue(eventId: string, userId: string): Promise<{ rank: number; waitTimeSeconds: number }> {
+    const key = this.queueKey(eventId);
+    const score = Date.now(); // Guarantees strict FIFO ordering
+
+    // ZADD is O(log N)
+    await redis.zadd(key, score, userId);
+
+    const rank = await this.getRank(eventId, userId);
+    // Based on an admission rate of 25 users per 10 seconds (2.5 users/sec)
+    const waitTimeSeconds = Math.ceil(rank / 2.5);
+
+    return { rank, waitTimeSeconds };
+  }
+
+  // 2. Fetch Live Rank: ZRANK returns 0-indexed position
+  async getRank(eventId: string, userId: string): Promise<number> {
+    const key = this.queueKey(eventId);
+    const rank = await redis.zrank(key, userId);
+    return rank !== null ? rank + 1 : -1;
+  }
+
+  // 3. Queue Drain Worker: Atomically pops the earliest N users
+  async admitBatch(eventId: string, batchSize: number = 25): Promise<string[]> {
+    const key = this.queueKey(eventId);
+    // ZPOPMIN atomically extracts the lowest scores
+    const popped = await redis.zpopmin(key, batchSize);
+    // Filter array to extract member IDs (every even index)
+    return popped.filter((_, idx) => idx % 2 === 0);
+  }
+}</code></pre>
+
+<div class="callout callout-info avoid-break">
+  <div class="callout-title">💡 Why Skip Lists Outperform B-Trees for Flash Sales</div>
+  Redis Sorted Sets maintain a probabilistic skip-list in RAM. Even with 100,000 waiting users, evaluating <code>ZRANK</code> takes less than 1 millisecond and requires only ~12MB of RAM, shielding the database completely.
+</div>
+
+<div class="page-break"></div>
+
+<!-- PAGE 9: SECTION 5 - MECHANISM 2: LOCKS -->
+<div class="header-tag">Section 05 (Part 2)</div>
+<h1>7. Technical Mechanics: Atomic Distributed Seat Locking (SET NX EX)</h1>
+
+<h2>7.1 Eliminating Double-Bookings with Atomic In-Memory Locks</h2>
+<p>
+When two users click Seat <code>B-14</code> at the exact same millisecond, naive systems suffer read-modify-write race conditions. QueueForge solves this via Redis atomic commands with zero locking on SQL tables.
+</p>
+
+<h2>7.2 Implementation: LockService</h2>
+<pre><code class="language-typescript">// apps/api/src/services/lock.service.ts
+import { redis } from "../lib/redis";
+
+export class LockService {
+  private lockKey(seatId: string): string {
+    return `lock:seat:${seatId}`;
+  }
+
+  // Atomically acquire a 10-minute hold (600 seconds)
+  async acquireSeatHold(seatId: string, userId: string, ttlSeconds: number = 600): Promise<boolean> {
+    const key = this.lockKey(seatId);
+    
+    // NX = Only set key if it does NOT exist (Atomicity guarantee)
+    // EX = Automatically expire key after ttlSeconds (Auto-release protection)
+    const result = await redis.set(key, userId, "NX", "EX", ttlSeconds);
+    
+    return result === "OK";
+  }
+
+  // Atomically release hold using Lua Script
+  // Guarantees that User A cannot accidentally release a lock held by User B
+  async releaseSeatHold(seatId: string, userId: string): Promise<boolean> {
+    const key = this.lockKey(seatId);
+    const luaScript = `
+      if redis.call("get", KEYS[1]) == ARGV[1] then
+        return redis.call("del", KEYS[1])
+      else
+        return 0
+      end
+    `;
+    const result = await redis.eval(luaScript, 1, key, userId);
+    return result === 1;
+  }
+}</code></pre>
+
+<div class="callout callout-success avoid-break">
+  <div class="callout-title">🔒 The Ownership-Safe Lua Release Pattern</div>
+  Notice the Lua script in <code>releaseSeatHold</code>. If User A's hold expired at 10:00:00 and User B acquired it at 10:00:01, a naive <code>DEL</code> from User A would wrongfully steal User B's lock. The Lua script evaluates equality and deletion atomically inside Redis, preventing lock-stealing bugs.
+</div>
+
+<div class="page-break"></div>
+
+<!-- PAGE 10: SECTION 6 - DATABASE SCHEMA -->
+<div class="header-tag">Section 06</div>
+<h1>8. Database Schema Design (PostgreSQL / Prisma)</h1>
+
+<p>
+Relational data is stored in PostgreSQL and managed with Prisma ORM. The relational database is strictly protected from high-frequency locking, handling only durable entity state and completed transactions.
+</p>
+
+<div class="two-col avoid-break">
+  <div>
+<pre><code class="language-prisma">// Core Catalogs: Events & Venues
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum EventStatus {
+  UPCOMING
+  ON_SALE
+  SOLD_OUT
+  COMPLETED
+}
+
+model Event {
+  id                String      @id @default(uuid())
+  title             String
+  venueId           String
+  venue             Venue       @relation(fields: [venueId], references: [id])
+  eventDate         DateTime
+  status            EventStatus @default(UPCOMING)
+  maxTicketsPerUser Int         @default(4)
+  seats             Seat[]
+  orders            Order[]
+  createdAt         DateTime    @default(now())
+}
+
+model Venue {
+  id        String   @id @default(uuid())
+  name      String
+  city      String
+  totalRows Int
+  totalCols Int
+  events    Event[]
+}</code></pre>
+  </div>
+
+  <div>
+<pre><code class="language-prisma">// Inventory & Transaction Settlement
+enum SeatStatus  { AVAILABLE, SOLD, BLOCKED }
+enum OrderStatus { PENDING, COMPLETED, CANCELLED }
+
+model Seat {
+  id         String     @id @default(uuid())
+  eventId    String
+  event      Event      @relation(fields: [eventId], references: [id])
+  section    String     // e.g., "VIP", "Floor"
+  row        String     // e.g., "A", "B"
+  number     Int        // e.g., 1, 2, 3
+  priceCents Int        // e.g., 7500 ($75.00)
+  status     SeatStatus @default(AVAILABLE)
+  orderId    String?
+  order      Order?     @relation(fields: [orderId], references: [id])
+  updatedAt  DateTime   @updatedAt
+
+  @@unique([eventId, section, row, number])
+  @@index([eventId, status])
+}
+
+model Order {
+  id               String      @id @default(uuid())
+  eventId          String
+  event            Event       @relation(fields: [eventId], references: [id])
+  userId           String
+  totalAmountCents Int
+  status           OrderStatus @default(PENDING)
+  idempotencyKey   String      @unique
+  seats            Seat[]
+  createdAt        DateTime    @default(now())
+}</code></pre>
+  </div>
+</div>
+
+<div class="callout callout-warning avoid-break">
+  <div class="callout-title">⚠️ Idempotency Key Pattern: Preventing Double Credit Card Charges</div>
+  Notice the unique index on <code>idempotencyKey</code> in the <code>Order</code> table. When users repeatedly click the "Confirm Purchase" button, the client sends a unique UUID in the <code>Idempotency-Key</code> header. PostgreSQL enforces unique constraints, ensuring identical requests return cached receipts rather than creating duplicate orders.
+</div>
+
+<div class="page-break"></div>
+
+<!-- PAGE 11: SECTION 7 - TECH STACK & MONOREPO -->
+<div class="header-tag">Section 07</div>
+<h1>9. 100% Free-Tier Production Tech Stack & Monorepo</h1>
+
+<p>
+QueueForge can be completely developed locally with Docker and deployed to production for <strong>$0.00</strong> with zero credit card requirements:
+</p>
+
+<table class="avoid-break">
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Selected Technology</th>
+      <th>Production Free Tier</th>
+      <th>Why Chosen for QueueForge</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Frontend</strong></td>
+      <td>Next.js 15 (App Router), Tailwind CSS, Framer Motion</td>
+      <td><strong>Vercel Free Tier</strong></td>
+      <td>SSR for initial page loads; client-side interactive SVG seat grid and real-time WebSocket listeners.</td>
+    </tr>
+    <tr>
+      <td><strong>Backend API</strong></td>
+      <td>Node.js TypeScript + Fastify / Express</td>
+      <td><strong>Render.com Free Web Service</strong></td>
+      <td>Fastify handles high HTTP throughput and WebSockets with significantly lower memory footprint.</td>
+    </tr>
+    <tr>
+      <td><strong>Cache & Lock</strong></td>
+      <td>Redis (v7.2)</td>
+      <td><strong>Upstash Redis (Free Tier)</strong> / Docker</td>
+      <td>Sub-millisecond <code>ZADD/ZRANK</code> waiting rooms and atomic <code>SET NX EX</code> distributed locks.</td>
+    </tr>
+    <tr>
+      <td><strong>Database</strong></td>
+      <td>PostgreSQL (v16) with Prisma ORM</td>
+      <td><strong>Supabase Free Tier</strong></td>
+      <td>ACID transactional integrity for completed tickets and strict uniqueness constraints on idempotency keys.</td>
+    </tr>
+    <tr>
+      <td><strong>Real-Time</strong></td>
+      <td>WebSockets (<code>ws</code> / <code>Socket.io</code>)</td>
+      <td>Direct API WebSockets on Render</td>
+      <td>Instant seat color synchronization across all connected clients without polling overhead.</td>
+    </tr>
+    <tr>
+      <td><strong>Background Jobs</strong></td>
+      <td>BullMQ / pg-boss</td>
+      <td>Worker process on Render / Docker</td>
+      <td>Handles scheduled queue drain batches and automatic sweeps of expired 10-minute holds.</td>
+    </tr>
+    <tr>
+      <td><strong>Load Testing</strong></td>
+      <td>k6 / Autocannon</td>
+      <td>Local CLI & GitHub Actions</td>
+      <td>Allows writing repeatable stress tests simulating 1,000 concurrent users to prove zero double-bookings.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>9.1 Monorepo Workspace Directory Tree</h2>
+<pre>
+/home/luffy/Desktop/queueforge/
+├── apps/
+│   ├── web/                    # Next.js 15 Frontend (App Router, SVG Seat Grid, Waiting Room UI)
+│   ├── api/                    # Fastify Backend API (QueueService, LockService, WebSockets)
+│   └── worker/                 # Background Job Processor (BullMQ Drain & Sweeper Jobs)
+├── packages/
+│   ├── database/               # Prisma Schema, Migrations, Venue Seeders
+│   ├── types/                  # Shared TypeScript Interfaces & WebSocket Event DTOs
+│   └── load-tests/             # k6 Concurrency Stress Scripts (200-1,000 virtual users)
+├── docker-compose.yml          # Local Postgres (5432) & Redis (6379)
+└── README.md                   # Architecture Diagrams, Benchmarks & Concurrency Proofs
+</pre>
+
+<div class="page-break"></div>
+
+<!-- PAGE 12: SECTION 8 - EXECUTION ROADMAP -->
+<div class="header-tag">Section 08</div>
+<h1>10. Master 8-Week / 4-Phase Execution Roadmap</h1>
+
+<div class="flow-container avoid-break">
+  <div class="flow-step">
+    <div class="step-num" style="background: #3b82f6;">P1</div>
+    <div class="step-content">
+      <strong>PHASE 1: Project Skeleton & Database Foundations (Weeks 1 & 2)</strong>
+      <ul>
+        <li>Initialize npm workspaces / Turborepo in <code>/home/luffy/Desktop/queueforge</code>.</li>
+        <li>Set up <code>docker-compose.yml</code> for local PostgreSQL & Redis containers.</li>
+        <li>Model Prisma database schema (Events, Venues, Seats, Orders) and run initial migrations.</li>
+        <li>Create a seeder script generating a realistic concert venue layout with 500 interactive seats.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="flow-step">
+    <div class="step-num" style="background: #8b5cf6;">P2</div>
+    <div class="step-content">
+      <strong>PHASE 2: Concurrency & Lock Engine - The Core Backend (Weeks 3 & 4)</strong>
+      <ul>
+        <li>Implement <code>LockService</code> in Fastify using atomic Redis <code>SET NX EX 600</code>.</li>
+        <li>Write Lua script for safe, ownership-verified hold releases.</li>
+        <li>Implement BullMQ worker to sweep expired holds and return seats to inventory.</li>
+        <li><strong>Automated Stress Test:</strong> Write a Vitest/k6 script sending 50 simultaneous HTTP requests for Seat <code>A-1</code>; assert exactly 1 success and 49 rejections.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="flow-step">
+    <div class="step-num" style="background: #10b981;">P3</div>
+    <div class="step-content">
+      <strong>PHASE 3: Virtual Waiting Room & WebSockets (Weeks 5 & 6)</strong>
+      <ul>
+        <li>Implement Redis Sorted Set queue (<code>ZADD</code>, <code>ZRANK</code>, <code>ZCARD</code>).</li>
+        <li>Build Queue Drain Worker: periodically pops batches of users and issues signed JWT passes.</li>
+        <li>Configure WebSocket server broadcasting seat status updates across connected clients.</li>
+        <li>Enforce middleware: users cannot reach the seat reservation API without an active JWT pass.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="flow-step">
+    <div class="step-num" style="background: #f59e0b;">P4</div>
+    <div class="step-content">
+      <strong>PHASE 4: Frontend UI, Load Testing & Cloud Deployment (Weeks 7 & 8)</strong>
+      <ul>
+        <li>Build zoomable, pannable SVG Seat Grid component in Next.js with real-time color states.</li>
+        <li>Build Waiting Room screen with animated progress bar and audio chime upon admission.</li>
+        <li>Implement idempotent checkout form with 10-minute hold countdown timer.</li>
+        <li>Run high-concurrency load test with <strong>k6</strong> (1,000 simulated users) and generate metrics charts.</li>
+        <li>Deploy frontend to Vercel and backend/worker to Render.com (100% free tier).</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="callout callout-info avoid-break">
+  <div class="callout-title">📅 Timeline Flexibility</div>
+  If you are dedicating full-time hours (20-30 hrs/week), this roadmap can comfortably be compressed into <strong>3 to 4 weeks</strong> by executing Phase 1 and 2 in Week 1, Phase 3 in Week 2, and Phase 4 in Week 3.
+</div>
+
+<div class="page-break"></div>
+
+<!-- PAGE 13: SECTION 9 - LOAD TESTING -->
+<div class="header-tag">Section 09</div>
+<h1>11. Concurrency Load Testing & Verification Blueprint</h1>
+
+<p>
+The core value proposition of QueueForge on a developer portfolio is <strong>empirical verification</strong>. Anyone can write code and claim it is concurrent; you will provide repeatable scripts that prove it.
+</p>
+
+<h2>11.1 The k6 High-Concurrency Stress Test Script</h2>
+
+<pre><code class="language-javascript">// packages/load-tests/seat-contention.js
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export const options = {
+  // Simulate 200 concurrent users attacking the exact same seat within 5 seconds
+  vus: 200,
+  duration: '5s',
+};
+
+export default function () {
+  const url = 'http://localhost:3001/api/seats/A-12/hold';
+  const payload = JSON.stringify({
+    userId: `user-${__VU}-${__ITER}`,
+    eventId: 'event-coldplay-2026',
+  });
+
+  const params = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer test-jwt-pass',
+    },
+  };
+
+  const res = http.post(url, payload, params);
+
+  // We expect EXACTLY ONE 200 OK, and ALL OTHER 199 responses to be 409 Conflict
+  check(res, {
+    'status is 200 or 409': (r) => r.status === 200 || r.status === 409,
+    'not a server crash 500': (r) => r.status !== 500,
+  });
+
+  sleep(0.1);
+}</code></pre>
+
+<h2>11.2 Verification Metrics to Showcase in Your GitHub README</h2>
+
+<div class="two-col avoid-break">
+  <div class="card">
+    <div class="card-title">📊 Latency & Throughput KPIs</div>
+    <ul style="font-size: 7.8pt; padding-left: 12px; margin: 0;">
+      <li><strong>P95 Response Time:</strong> &lt; 15ms under 1,000 concurrent requests.</li>
+      <li><strong>Lock Acquisition Time:</strong> Sub-2ms Redis in-memory operation.</li>
+      <li><strong>Database Load:</strong> 0 direct queries during high-concurrency contention phase.</li>
+      <li><strong>Error Rate:</strong> 0% server crashes (500s); graceful 409 Conflict handling.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🛡️ Data Integrity Guarantee</div>
+    <ul style="font-size: 7.8pt; padding-left: 12px; margin: 0;">
+      <li><strong>Double Bookings:</strong> Exactly 0 across 10,000 simulated purchases.</li>
+      <li><strong>Lock Leaks:</strong> 0 stranded holds; 100% of abandoned reservations reclaimed within 600s.</li>
+      <li><strong>Idempotency Safety:</strong> Duplicate button clicks produce identical transaction receipts without duplicate billing.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- PAGE 14: SECTION 10 - INTERVIEW PLAYBOOK -->
+<div class="header-tag">Section 10</div>
+<h1>12. Technical Interview Playbook & Portfolio Pitch</h1>
+
+<h2>12.1 The Interview Script: "Tell Me About a Complex Project You Built"</h2>
+<p>
+When an interviewer asks you about a complex project, do <strong>not</strong> say: <em>"I built a ticket selling website with Next.js and Postgres."</em> Instead, deliver this senior-level system design response:
+</p>
+
+<div class="callout callout-dark avoid-break">
+  <div class="callout-title">🎙️ Your Interview Pitch Script</div>
+  <p style="font-style: italic; margin-bottom: 0;">
+    "I engineered <strong>QueueForge</strong>, a distributed high-concurrency reservation engine designed to solve the traffic spike and race condition problems common during flash sales like Ticketmaster concert drops.<br><br>
+    The biggest architectural hurdle was preventing database deadlocks and double-bookings when tens of thousands of users attempt to purchase the exact same seat simultaneously. To solve this, I designed a multi-layer ingress system: incoming users are metered through an in-memory <strong>Redis Sorted Set virtual waiting room</strong> that streams live position telemetry via WebSockets and issues temporary cryptographic access passes.<br><br>
+    Once inside the interactive seat map, seat holds are managed using <strong>atomic Redis distributed locks</strong> with a 10-minute TTL and ownership-verified Lua script releases. This completely isolates our PostgreSQL database from write thrashing. I verified the concurrency model by executing automated <strong>k6 load tests</strong> simulating 1,000 concurrent users attacking identical inventory, achieving sub-15ms P95 response times with zero deadlocks and zero duplicate bookings."
+  </p>
+</div>
+
+<h2>12.2 Top 4 System Design Questions This Project Answers</h2>
+
+<table class="avoid-break">
+  <thead>
+    <tr>
+      <th>System Design Question</th>
+      <th>How QueueForge Directly Demonstrates Mastery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>"How do you prevent race conditions without table-locking the database?"</strong></td>
+      <td>Explain the atomic <code>SET NX EX</code> pattern in Redis. Show how in-memory locks return in &lt;2ms, rejecting competing threads immediately without locking Postgres rows.</td>
+    </tr>
+    <tr>
+      <td><strong>"How do you handle fair queuing under extreme traffic surges?"</strong></td>
+      <td>Explain the Redis Sorted Set (<code>ZADD</code> / <code>ZRANK</code>) data structure, timestamp scoring for strict FIFO fairness, and background batch drain controllers.</td>
+    </tr>
+    <tr>
+      <td><strong>"How do you clean up abandoned reservations if a user closes their tab?"</strong></td>
+      <td>Explain TTL self-destruct mechanisms and BullMQ delayed job schedulers that broadcast WebSocket release events to repopulate the seat canvas.</td>
+    </tr>
+    <tr>
+      <td><strong>"How do you prevent double payment charges if a user clicks submit twice?"</strong></td>
+      <td>Explain the client-generated <code>Idempotency-Key</code> pattern and PostgreSQL unique constraint enforcement within ACID transactions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<!-- PAGE 15: SECTION 11 - QUICK START -->
+<div class="header-tag">Section 11</div>
+<h1>13. Quick-Start Guide for /home/luffy/Desktop/queueforge</h1>
+
+<h2>13.1 Immediate Initialization Steps</h2>
+<p>
+The project directory is already prepared at <code>/home/luffy/Desktop/queueforge</code>. Follow these exact steps to begin Phase 1:
+</p>
+
+<pre><code class="language-bash"># Step 1: Navigate to the project workspace
+cd /home/luffy/Desktop/queueforge
+
+# Step 2: Initialize root package.json for workspaces
+npm init -y
+
+# Step 3: Create monorepo directory tree
+mkdir -p apps/web apps/api apps/worker packages/database packages/types packages/load-tests
+</code></pre>
+
+<h2>13.2 Local Docker Compose Environment (PostgreSQL + Redis)</h2>
+<p>
+Create <code>docker-compose.yml</code> in the root of <code>queueforge</code> to run both PostgreSQL and Redis locally with a single command:
+</p>
+
+<pre><code class="language-yaml">version: '3.8'
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: queueforge-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: queueforge
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: queueforge-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+
+volumes:
+  pgdata:
+  redisdata:</code></pre>
+
+<pre><code class="language-bash"># Start local database and Redis services
+docker compose up -d
+</code></pre>
+
+<div class="callout callout-success avoid-break" style="margin-top: 8px;">
+  <div class="callout-title">🚀 You Are Ready to Build!</div>
+  You now have the complete engineering blueprint, architectural foundation, and step-by-step roadmap for <strong>QueueForge</strong>. Whenever you are ready to write the first lines of code, simply open the project and let's implement Phase 1!
+</div>
+
+</body>
+</html>

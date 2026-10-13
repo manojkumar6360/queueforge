@@ -1,0 +1,13 @@
+{
+  "name": "@queueforge/load-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test:concurrency": "tsx stress-runner.ts",
+    "test:k6": "k6 run seat-contention.js"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}

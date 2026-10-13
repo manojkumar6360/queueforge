@@ -1,0 +1,78 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum EventStatus {
+  UPCOMING
+  ON_SALE
+  SOLD_OUT
+  COMPLETED
+}
+
+enum SeatStatus {
+  AVAILABLE
+  SOLD
+  BLOCKED
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+model Event {
+  id                String      @id @default(uuid())
+  title             String
+  venueId           String
+  venue             Venue       @relation(fields: [venueId], references: [id])
+  eventDate         DateTime
+  status            EventStatus @default(UPCOMING)
+  maxTicketsPerUser Int         @default(4)
+  seats             Seat[]
+  orders            Order[]
+  createdAt         DateTime    @default(now())
+}
+
+model Venue {
+  id        String   @id @default(uuid())
+  name      String
+  city      String
+  totalRows Int
+  totalCols Int
+  events    Event[]
+}
+
+model Seat {
+  id         String     @id @default(uuid())
+  eventId    String
+  event      Event      @relation(fields: [eventId], references: [id])
+  section    String     // e.g., "VIP", "Floor", "Balcony"
+  row        String     // e.g., "A", "B", "C"
+  number     Int        // e.g., 1, 2, 3
+  priceCents Int        // e.g., 7500 ($75.00)
+  status     SeatStatus @default(AVAILABLE)
+  orderId    String?
+  order      Order?     @relation(fields: [orderId], references: [id])
+  updatedAt  DateTime   @updatedAt
+
+  @@unique([eventId, section, row, number])
+  @@index([eventId, status])
+}
+
+model Order {
+  id               String      @id @default(uuid())
+  eventId          String
+  event            Event       @relation(fields: [eventId], references: [id])
+  userId           String
+  totalAmountCents Int
+  status           OrderStatus @default(PENDING)
+  idempotencyKey   String      @unique
+  seats            Seat[]
+  createdAt        DateTime    @default(now())
+}

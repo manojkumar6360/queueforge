@@ -1,0 +1,26 @@
+{
+  "name": "queueforge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Distributed Virtual Waiting Room & High-Concurrency Flash Reservation Engine",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\" \"npm run dev:worker\"",
+    "dev:api": "npm run dev --workspace=@queueforge/api",
+    "dev:web": "npm run dev --workspace=@queueforge/web",
+    "dev:worker": "npm run dev --workspace=@queueforge/worker",
+    "build": "npm run build --workspaces",
+    "db:migrate": "npm run db:migrate --workspace=@queueforge/database",
+    "db:seed": "npm run db:seed --workspace=@queueforge/database",
+    "db:studio": "npm run db:studio --workspace=@queueforge/database",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.5.4"
+  }
+}
